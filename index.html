@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  ============================================================================
+  Beyond Next Token Prediction — NeurIPS 2026 Workshop
+  Single-file static site. No build step. Deploy on GitHub Pages (relative paths).
+
+  TODO / needs organizer confirmation (see OUTPUT.md):
+    - Location (Sydney vs Atlanta vs assigned) + exact single day (11 or 12 Dec)
+    - OpenReview group URL  -> currently placeholder https://openreview.net/
+    - Shared contact email  -> "Contact" links to Organizers section for now
+    - Paper page limits (regular vs short)  -> not stated; kept generic
+    - Sponsor confirmations + logos  -> section marked "In discussion"
+    - Per-person Google Scholar links; official acronym
+  All unconfirmed values are rendered with a visible "TBD/tentative" treatment.
+  ============================================================================
+-->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beyond Next Token Prediction · NeurIPS 2026 Workshop</title>
+  <meta name="description" content="A NeurIPS 2026 workshop on discrete diffusion and flow models: explore the theory, algorithms, and applications of parallel, non-causal generation beyond next-token prediction." />
+  <meta name="author" content="NeurIPS 2026 Workshop Organizers" />
+  <meta name="theme-color" content="#0b1020" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Beyond Next Token Prediction — NeurIPS 2026 Workshop" />
+  <meta property="og:description" content="Beyond next-token prediction — the theory, algorithms, and applications of discrete diffusion and flow models for next-generation decoding." />
+  <meta property="og:image" content="assets/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Beyond Next Token Prediction — NeurIPS 2026 Workshop" />
+  <meta name="twitter:description" content="Discrete diffusion & flow models for next-generation decoding. NeurIPS 2026." />
+  <meta name="twitter:image" content="assets/og.png" />
+
+  <!-- Favicon: inline SVG denoising-grid mark (no external file needed) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b1020'/%3E%3Cg fill='%235b53ff'%3E%3Crect x='5' y='5' width='6' height='6' rx='1.4' opacity='.35'/%3E%3Crect x='13' y='5' width='6' height='6' rx='1.4' opacity='.9'/%3E%3Crect x='21' y='5' width='6' height='6' rx='1.4' opacity='.5'/%3E%3C/g%3E%3Cg fill='%2312b3a6'%3E%3Crect x='5' y='13' width='6' height='6' rx='1.4' opacity='.85'/%3E%3Crect x='13' y='13' width='6' height='6' rx='1.4' opacity='.45'/%3E%3Crect x='21' y='13' width='6' height='6' rx='1.4' opacity='.95'/%3E%3C/g%3E%3Cg fill='%235b53ff'%3E%3Crect x='5' y='21' width='6' height='6' rx='1.4' opacity='.55'/%3E%3Crect x='13' y='21' width='6' height='6' rx='1.4' opacity='.95'/%3E%3Crect x='21' y='21' width='6' height='6' rx='1.4' opacity='.3'/%3E%3C/g%3E%3C/svg%3E" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Structured data (kept minimal + accurate) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Beyond Next Token Prediction: Diffusion and Flow Models for Next-Generation Decoding",
+    "description": "A NeurIPS 2026 workshop on discrete diffusion and flow models for parallel, non-causal generation.",
+    "startDate": "2026-12-11",
+    "endDate": "2026-12-12",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": { "@type": "Place", "name": "NeurIPS 2026 (location TBD)" },
+    "superEvent": { "@type": "Event", "name": "NeurIPS 2026" }
+  }
+  </script>
+
+  <style>
+    /* ===================== Design tokens ===================== */
+    :root{
+      --ink:#0b1020;
+      --ink-2:#141b33;
+      --ink-3:#1d2645;
+      --paper:#f5f2ec;
+      --paper-2:#ece7dc;
+      --text:#1b2130;
+      --text-soft:#565c6d;
+      --accent:#5b53ff;
+      --accent-2:#12b3a6;
+      --accent-lt:#a09bff;     /* accent on dark */
+      --accent-2-lt:#4fd6cb;   /* teal on dark */
+      --line:#d9d2c4;
+      --line-soft:#e4ddd0;
+      --gold:#9a6d16;          /* TBD / tentative marker (AA on paper) */
+      --gold-lt:#e0b055;       /* TBD marker on dark */
+      --maxw:1180px;
+      --pad:clamp(20px, 5vw, 64px);
+      --r:14px;
+      --shadow:0 1px 2px rgba(11,16,32,.04), 0 12px 34px -18px rgba(11,16,32,.22);
+      --ff-display:"Source Serif 4", Georgia, "Times New Roman", serif;
+      --ff-body:"Newsreader", Georgia, serif;
+      --ff-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+    }
+
+    /* ===================== Base ===================== */
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth; -webkit-text-size-adjust:100%}
+    @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+    body{
+      margin:0; background:var(--paper); color:var(--text);
+      font-family:var(--ff-body); font-size:19px; line-height:1.65;
+      font-weight:400; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      overflow-x:hidden;
+    }
+    h1,h2,h3,h4{font-family:var(--ff-display); font-weight:600; line-height:1.08; margin:0; letter-spacing:-.01em}
+    p{margin:0 0 1em}
+    a{color:inherit}
+    img{max-width:100%; display:block}
+    ::selection{background:var(--accent); color:#fff}
+    :focus-visible{outline:2.5px solid var(--accent); outline-offset:3px; border-radius:3px}
+    .skip{position:absolute; left:-999px; top:0; background:var(--ink); color:#fff; padding:12px 18px; z-index:200; border-radius:0 0 8px 0; font-family:var(--ff-mono); font-size:13px}
+    .skip:focus{left:0}
+
+    .wrap{max-width:var(--maxw); margin:0 auto; padding-inline:var(--pad)}
+    section{position:relative}
+
+    /* ===================== Shared type ===================== */
+    .eyebrow{
+      font-family:var(--ff-mono); font-size:12.5px; letter-spacing:.22em; text-transform:uppercase;
+      color:var(--text-soft); display:inline-flex; align-items:center; gap:.7em; margin:0 0 22px;
+    }
+    .eyebrow .idx{color:var(--accent); font-weight:600}
+    .eyebrow::before{content:""; width:26px; height:1px; background:var(--line); display:inline-block}
+    section.dark .eyebrow{color:#a7adc4}
+    section.dark .eyebrow::before{background:rgba(255,255,255,.22)}
+    section.dark .eyebrow .idx{color:var(--accent-lt)}
+
+    h2.h{font-size:clamp(30px, 4.6vw, 52px); letter-spacing:-.02em; max-width:16ch}
+    h2.h .it{font-style:italic; font-weight:400; color:var(--accent)}
+    section.dark h2.h .it{color:var(--accent-lt)}
+    .lead{font-size:clamp(19px,2.2vw,23px); color:var(--text-soft); max-width:60ch; line-height:1.6}
+    section.dark{background:var(--ink); color:#e9ebf4}
+    section.dark .lead{color:#aab0c6}
+
+    .pad-y{padding-block:clamp(72px, 11vw, 132px)}
+    .rule{height:1px; background:var(--line); border:0; margin:0}
+
+    .tbd{
+      color:var(--gold); font-style:italic;
+      text-decoration:underline dotted rgba(154,109,22,.5); text-underline-offset:3px; cursor:help;
+    }
+    section.dark .tbd{color:var(--gold-lt); text-decoration-color:rgba(224,176,85,.5)}
+
+    /* ===================== Buttons ===================== */
+    .btn{
+      display:inline-flex; align-items:center; gap:.55em; font-family:var(--ff-mono);
+      font-size:13.5px; letter-spacing:.04em; font-weight:500; padding:14px 22px; border-radius:999px;
+      text-decoration:none; border:1px solid transparent; cursor:pointer; transition:transform .18s ease, background .2s ease, box-shadow .2s ease, border-color .2s ease;
+      white-space:nowrap;
+    }
+    .btn-primary{background:var(--accent); color:#fff; box-shadow:0 10px 24px -10px rgba(91,83,255,.7)}
+    .btn-primary:hover{transform:translateY(-2px); box-shadow:0 16px 30px -12px rgba(91,83,255,.8)}
+    .btn-ghost{background:transparent; color:var(--text); border-color:var(--line)}
+    .btn-ghost:hover{border-color:var(--accent); color:var(--accent); transform:translateY(-2px)}
+    section.dark .btn-ghost{color:#fff; border-color:rgba(255,255,255,.28)}
+    section.dark .btn-ghost:hover{border-color:var(--accent-lt); color:var(--accent-lt)}
+    .btn .arr{font-size:1.05em; line-height:1}
+
+    /* ===================== Nav ===================== */
+    header.nav{position:fixed; inset:0 0 auto 0; z-index:100; transition:background .3s ease, box-shadow .3s ease, border-color .3s ease; border-bottom:1px solid transparent}
+    header.nav.scrolled{background:rgba(245,242,236,.85); backdrop-filter:saturate(160%) blur(12px); -webkit-backdrop-filter:saturate(160%) blur(12px); border-bottom-color:var(--line); box-shadow:0 1px 20px -12px rgba(11,16,32,.4)}
+    .nav-inner{display:flex; align-items:center; justify-content:space-between; gap:24px; height:68px; max-width:var(--maxw); margin:0 auto; padding-inline:var(--pad)}
+    .brand{display:flex; align-items:center; gap:11px; text-decoration:none; color:var(--paper); font-family:var(--ff-mono); font-size:13px; letter-spacing:.02em; line-height:1.15; transition:color .3s ease}
+    header.nav.scrolled .brand{color:var(--text)}
+    .brand .mark{width:26px; height:26px; flex:none; border-radius:7px}
+    .brand b{font-weight:600}
+    .brand .sub{color:var(--accent-lt)}
+    header.nav.scrolled .brand .sub{color:var(--accent)}
+    .nav-links{display:flex; align-items:center; gap:4px; list-style:none; margin:0; padding:0}
+    .nav-links a{font-family:var(--ff-mono); font-size:12.5px; letter-spacing:.05em; text-transform:uppercase; text-decoration:none; color:rgba(245,242,236,.82); padding:8px 12px; border-radius:8px; transition:color .2s ease, background .2s ease}
+    header.nav.scrolled .nav-links a{color:var(--text-soft)}
+    .nav-links a:hover, .nav-links a.active{color:var(--accent-lt)}
+    header.nav.scrolled .nav-links a:hover, header.nav.scrolled .nav-links a.active{color:var(--accent); background:rgba(91,83,255,.07)}
+    .nav-links a.cta{color:#fff; background:var(--accent); margin-left:8px}
+    .nav-links a.cta:hover{background:#4a42e6; color:#fff}
+    header.nav.scrolled .nav-links a.cta{color:#fff; background:var(--accent)}
+    .nav-toggle{display:none; background:none; border:1px solid rgba(245,242,236,.3); color:var(--paper); width:42px; height:42px; border-radius:10px; font-size:20px; cursor:pointer; align-items:center; justify-content:center}
+    header.nav.scrolled .nav-toggle{color:var(--text); border-color:var(--line)}
+
+    /* Mobile drawer */
+    .drawer-backdrop{position:fixed; inset:0; background:rgba(11,16,32,.5); opacity:0; visibility:hidden; transition:opacity .3s ease, visibility .3s ease; z-index:110; backdrop-filter:blur(2px)}
+    .drawer-backdrop.open{opacity:1; visibility:visible}
+    @media (max-width:900px){
+      .nav-links{
+        position:fixed; top:0; right:0; height:100dvh; width:min(82vw, 340px); z-index:120;
+        background:var(--ink); flex-direction:column; align-items:stretch; gap:2px; padding:96px 22px 30px;
+        transform:translateX(100%); transition:transform .34s cubic-bezier(.2,.7,.2,1); box-shadow:-30px 0 60px -30px rgba(0,0,0,.6);
+      }
+      .nav-links.open{transform:translateX(0)}
+      .nav-links a{color:#d7dbe9; font-size:14px; padding:14px 14px; border-radius:10px}
+      header.nav.scrolled .nav-links a{color:#d7dbe9}
+      .nav-links a:hover, header.nav.scrolled .nav-links a:hover{color:#fff; background:rgba(255,255,255,.06)}
+      .nav-links a.cta{margin-left:0; margin-top:12px; justify-content:center; text-align:center; display:flex}
+      .nav-toggle{display:inline-flex}
+    }
+
+    /* ===================== Hero ===================== */
+    .hero{position:relative; background:var(--ink); color:#fff; overflow:hidden; isolation:isolate}
+    #hero-canvas{position:absolute; inset:0; width:100%; height:100%; z-index:0; opacity:.55}
+    .hero-veil{position:absolute; inset:0; z-index:1; background:
+      radial-gradient(120% 90% at 20% 15%, rgba(11,16,32,.15), rgba(11,16,32,.72) 62%, rgba(11,16,32,.94) 100%),
+      linear-gradient(180deg, rgba(11,16,32,.55) 0%, rgba(11,16,32,.2) 40%, rgba(11,16,32,.85) 100%);}
+    .hero-inner{position:relative; z-index:2; max-width:var(--maxw); margin:0 auto; padding:150px var(--pad) 96px; min-height:100svh; display:flex; flex-direction:column; justify-content:center}
+    .hero .kicker{font-family:var(--ff-mono); font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent-lt); margin-bottom:26px; display:flex; align-items:center; gap:.8em; flex-wrap:wrap}
+    .hero .kicker .dot{width:6px; height:6px; border-radius:50%; background:var(--accent-2-lt); box-shadow:0 0 12px var(--accent-2-lt)}
+    .hero h1{font-size:clamp(38px, 6.6vw, 82px); line-height:1.02; letter-spacing:-.03em; max-width:16ch; margin-bottom:8px}
+    .hero h1 .grad{background:linear-gradient(100deg, var(--accent-lt), var(--accent-2-lt)); -webkit-background-clip:text; background-clip:text; color:transparent; font-style:italic; font-weight:400}
+    .hero .sub{font-size:clamp(18px, 2.3vw, 24px); color:#c6cbde; max-width:56ch; margin:22px 0 0; line-height:1.5}
+    .chips{display:flex; flex-wrap:wrap; gap:12px; margin:38px 0 40px}
+    .chip{display:flex; flex-direction:column; gap:3px; padding:12px 18px; border:1px solid rgba(255,255,255,.16); border-radius:12px; background:rgba(255,255,255,.03); backdrop-filter:blur(3px)}
+    .chip .k{font-family:var(--ff-mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#9098b6}
+    .chip .v{font-family:var(--ff-display); font-size:19px; font-weight:600; color:#fff; letter-spacing:-.01em}
+    .chip.accent{border-color:rgba(160,155,255,.5); background:rgba(91,83,255,.12)}
+    .chip.accent .v{color:var(--accent-lt)}
+    .hero-actions{display:flex; flex-wrap:wrap; gap:14px; align-items:center}
+    .hero-actions .contact{font-family:var(--ff-mono); font-size:13px; letter-spacing:.03em; color:#c6cbde; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.25); padding-bottom:2px; transition:color .2s, border-color .2s}
+    .hero-actions .contact:hover{color:#fff; border-color:var(--accent-lt)}
+    .scroll-hint{position:absolute; left:50%; bottom:26px; transform:translateX(-50%); z-index:2; font-family:var(--ff-mono); font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:#8890b0; display:flex; flex-direction:column; align-items:center; gap:8px}
+    .scroll-hint .line{width:1px; height:36px; background:linear-gradient(var(--accent-lt), transparent); animation:pulse 2.4s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:.3; transform:scaleY(.6)}50%{opacity:1; transform:scaleY(1)}}
+    @media (prefers-reduced-motion: reduce){ .scroll-hint .line{animation:none} }
+
+    /* ===================== Overview ===================== */
+    .about-grid{display:grid; grid-template-columns:1fr; gap:clamp(30px,4vw,56px)}
+    .about-copy p{font-size:clamp(18px,1.9vw,21px); color:var(--text); max-width:64ch}
+    .about-copy p + p{margin-top:0}
+    .tracks{display:grid; grid-template-columns:repeat(2,1fr); gap:22px; margin-top:8px}
+    .track{border:1px solid var(--line); border-radius:var(--r); padding:30px 28px 28px; background:linear-gradient(180deg,#fff,rgba(255,255,255,.35)); position:relative; overflow:hidden; transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease}
+    .track:hover{transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--accent)}
+    .track::before{content:""; position:absolute; inset:0 0 auto 0; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+    .track .tno{font-family:var(--ff-mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent)}
+    .track h3{font-size:24px; margin:10px 0 6px; letter-spacing:-.01em}
+    .track h3 em{font-style:italic; font-weight:400; color:var(--text-soft)}
+    .track .desc{color:var(--text-soft); font-size:17px; margin-bottom:18px}
+    .track dl{margin:0; display:grid; gap:14px}
+    .track dt{font-family:var(--ff-mono); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--text); font-weight:600; margin-bottom:3px}
+    .track dd{margin:0; font-size:15.5px; color:var(--text-soft); line-height:1.5}
+
+    /* ===================== Topics ===================== */
+    .topics-grid{display:grid; grid-template-columns:repeat(2,1fr); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; background:#fff}
+    .topic{display:flex; gap:16px; padding:20px 24px; border-bottom:1px solid var(--line-soft); border-right:1px solid var(--line-soft); align-items:baseline; transition:background .2s ease}
+    .topic:hover{background:var(--paper-2)}
+    .topic .n{font-family:var(--ff-mono); font-size:12px; color:var(--accent); font-weight:600; min-width:2.2em; letter-spacing:.04em}
+    .topic .t{font-size:17px; color:var(--text); line-height:1.4}
+    /* remove trailing borders responsibly */
+    .topics-grid .topic:nth-child(2n){border-right:0}
+
+    /* ===================== CFP ===================== */
+    .cfp-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(28px,4vw,56px); align-items:start}
+    .cfp-copy h3{font-size:21px; margin:26px 0 8px}
+    .cfp-copy h3:first-child{margin-top:0}
+    .cfp-copy p{color:var(--text-soft); font-size:17.5px; max-width:56ch}
+    .cfp-list{list-style:none; margin:14px 0 0; padding:0; display:grid; gap:12px}
+    .cfp-list li{position:relative; padding-left:28px; color:var(--text-soft); font-size:16.5px; line-height:1.5}
+    .cfp-list li::before{content:""; position:absolute; left:4px; top:.62em; width:9px; height:9px; border-radius:2px; background:var(--accent); transform:rotate(45deg)}
+    .cfp-list li b{color:var(--text); font-weight:600}
+    .cfp-side{border:1px solid var(--line); border-radius:var(--r); background:#fff; padding:28px; position:sticky; top:88px}
+    .stat-row{display:grid; grid-template-columns:1fr 1fr; gap:6px 20px}
+    .stat{padding:16px 0; border-bottom:1px solid var(--line-soft)}
+    .stat:nth-last-child(-n+2){border-bottom:0}
+    .stat .num{font-family:var(--ff-display); font-size:38px; font-weight:600; letter-spacing:-.02em; line-height:1; color:var(--text)}
+    .stat .num .u{font-size:20px; color:var(--accent)}
+    .stat .lab{font-family:var(--ff-mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--text-soft); margin-top:8px; line-height:1.4}
+    .cfp-note{margin-top:22px; padding-top:20px; border-top:1px solid var(--line-soft); font-size:14.5px; color:var(--text-soft); line-height:1.55}
+    .cfp-cta{margin-top:22px; display:flex}
+    .cfp-cta .btn{width:100%; justify-content:center}
+
+    /* ===================== Dates (dark timeline) ===================== */
+    .timeline{position:relative; margin-top:20px; padding-left:34px}
+    .timeline::before{content:""; position:absolute; left:8px; top:6px; bottom:6px; width:2px; background:linear-gradient(var(--accent-lt), rgba(255,255,255,.12))}
+    .tl-item{position:relative; padding:16px 0 16px 6px; display:grid; grid-template-columns:190px 1fr; gap:20px; align-items:baseline; border-bottom:1px solid rgba(255,255,255,.08)}
+    .tl-item:last-child{border-bottom:0}
+    .tl-item::before{content:""; position:absolute; left:-34px; top:24px; width:12px; height:12px; border-radius:50%; background:var(--ink); border:2px solid rgba(255,255,255,.35); transform:translateX(2px)}
+    .tl-item.key::before{background:var(--accent); border-color:var(--accent-lt); box-shadow:0 0 0 5px rgba(91,83,255,.18)}
+    .tl-date{font-family:var(--ff-mono); font-size:14px; letter-spacing:.02em; color:#c6cbde; font-weight:500}
+    .tl-item.key .tl-date{color:var(--accent-lt)}
+    .tl-what{font-family:var(--ff-display); font-size:19px; color:#eef0f8}
+    .tl-item.key .tl-what{font-weight:600}
+    .tl-what .sm{display:block; font-family:var(--ff-mono); font-size:11.5px; letter-spacing:.04em; color:#8890b0; text-transform:uppercase; margin-top:3px}
+    .aoe-note{font-family:var(--ff-mono); font-size:12px; letter-spacing:.05em; color:#8890b0; margin-top:26px; text-transform:uppercase}
+
+    /* ===================== Schedule ===================== */
+    .sched{border:1px solid var(--line); border-radius:var(--r); overflow:hidden; background:#fff; margin-top:8px}
+    .sched-row{display:grid; grid-template-columns:150px 1fr auto; gap:20px; align-items:center; padding:15px 24px; border-bottom:1px solid var(--line-soft); transition:background .18s ease}
+    .sched-row:last-child{border-bottom:0}
+    .sched-row:hover{background:var(--paper)}
+    .sched-row .time{font-family:var(--ff-mono); font-size:14px; color:var(--text-soft); letter-spacing:.01em; white-space:nowrap}
+    .sched-row .what{font-size:18px; color:var(--text)}
+    .sched-row.talk .what{font-weight:500}
+    .sched-row .tag{font-family:var(--ff-mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; padding:4px 10px; border-radius:999px; border:1px solid var(--line); color:var(--text-soft)}
+    .sched-row.break{background:var(--paper-2)}
+    .sched-row.break .what{color:var(--text-soft); font-style:italic; font-family:var(--ff-body)}
+    .sched-row.break:hover{background:var(--paper-2)}
+    .sched-row.oral .tag{color:var(--accent); border-color:rgba(91,83,255,.35)}
+    .sched-row.headline .what{font-family:var(--ff-display); font-weight:600}
+    .sched-legend{font-family:var(--ff-mono); font-size:12px; color:var(--text-soft); margin-top:18px; letter-spacing:.03em}
+
+    /* ===================== People cards ===================== */
+    .people{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:8px}
+    .card{border:1px solid var(--line); border-radius:var(--r); background:#fff; padding:24px; display:flex; flex-direction:column; transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease}
+    .card:hover{transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--accent)}
+    .card-head{display:flex; gap:16px; align-items:center; margin-bottom:16px}
+    .avatar{position:relative; width:72px; height:72px; flex:none; border-radius:50%; overflow:hidden; background:linear-gradient(135deg,var(--accent),var(--accent-2)); display:flex; align-items:center; justify-content:center; box-shadow:inset 0 0 0 1px rgba(255,255,255,.15)}
+    .avatar.g2{background:linear-gradient(135deg,var(--accent-2),#0e8f86)}
+    .avatar.g3{background:linear-gradient(135deg,#7a72ff,#5b53ff)}
+    .avatar .mono-initials{font-family:var(--ff-mono); font-size:22px; font-weight:600; color:#fff; letter-spacing:.02em}
+    .avatar img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+    .card-id .name{font-family:var(--ff-display); font-size:20px; font-weight:600; letter-spacing:-.01em; line-height:1.15}
+    .card-id .aff{font-family:var(--ff-mono); font-size:12px; letter-spacing:.02em; color:var(--text-soft); margin-top:5px; line-height:1.4}
+    .badge{display:inline-flex; align-items:center; gap:5px; font-family:var(--ff-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-2); background:rgba(18,179,166,.1); border:1px solid rgba(18,179,166,.3); padding:3px 9px; border-radius:999px; margin-top:9px; width:max-content}
+    .badge .d{width:5px; height:5px; border-radius:50%; background:var(--accent-2)}
+    .card .talk{font-family:var(--ff-display); font-style:italic; font-size:16.5px; color:var(--text); margin:2px 0 10px; line-height:1.35}
+    .card .talk .lbl{display:block; font-family:var(--ff-mono); font-style:normal; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--text-soft); margin-bottom:5px}
+    .card .bio{font-size:15px; color:var(--text-soft); line-height:1.55; margin:0}
+    .card .email{font-family:var(--ff-mono); font-size:12.5px; margin-top:14px; color:var(--accent); text-decoration:none; word-break:break-all; border-bottom:1px solid transparent; width:max-content; transition:border-color .2s}
+    .card .email:hover{border-bottom-color:var(--accent)}
+    .card-divider{height:1px; background:var(--line-soft); margin:0 0 14px}
+
+    /* Panel (compact row) */
+    .panel-mod{display:flex; align-items:center; gap:18px; border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:var(--r); background:#fff; padding:20px 24px; margin-bottom:22px}
+    .panel-mod .avatar{width:60px; height:60px}
+    .panel-mod .avatar .mono-initials{font-size:18px}
+    .panel-mod .role{font-family:var(--ff-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent)}
+    .panel-mod .name{font-family:var(--ff-display); font-size:21px; font-weight:600; margin-top:2px}
+    .panel-mod .aff{font-family:var(--ff-mono); font-size:12.5px; color:var(--text-soft); margin-top:2px}
+    .panelists{display:grid; grid-template-columns:repeat(4,1fr); gap:18px}
+    .pcard{border:1px solid var(--line); border-radius:var(--r); background:#fff; padding:22px; text-align:center; display:flex; flex-direction:column; align-items:center; transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease}
+    .pcard:hover{transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--accent-2)}
+    .pcard .avatar{width:84px; height:84px; margin-bottom:14px}
+    .pcard .name{font-family:var(--ff-display); font-size:18px; font-weight:600; line-height:1.2}
+    .pcard .aff{font-family:var(--ff-mono); font-size:11.5px; color:var(--text-soft); margin-top:6px; line-height:1.4}
+
+    /* ===================== Sponsors (dark) ===================== */
+    .funding-inner{display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,5vw,64px); align-items:center}
+    .funding p{color:#aab0c6; font-size:18px; max-width:52ch}
+    .sponsor-status{display:inline-flex; align-items:center; gap:9px; font-family:var(--ff-mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-lt); border:1px solid rgba(224,176,85,.35); background:rgba(224,176,85,.08); padding:7px 14px; border-radius:999px; margin-bottom:22px}
+    .sponsor-status .d{width:7px; height:7px; border-radius:50%; background:var(--gold-lt); animation:blink 2s ease-in-out infinite}
+    @keyframes blink{0%,100%{opacity:.35}50%{opacity:1}}
+    @media (prefers-reduced-motion: reduce){ .sponsor-status .d{animation:none} }
+    .sponsor-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    .sponsor-box{border:1px dashed rgba(255,255,255,.2); border-radius:12px; padding:22px 20px; text-align:center; background:rgba(255,255,255,.02)}
+    .sponsor-box .nm{font-family:var(--ff-display); font-size:19px; color:#eef0f8; font-weight:600}
+    .sponsor-box .st{font-family:var(--ff-mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:#8890b0; margin-top:6px}
+
+    /* ===================== CTA ===================== */
+    .cta-box{background:linear-gradient(135deg,var(--accent),#3f38c9); border-radius:22px; padding:clamp(40px,6vw,72px); text-align:center; color:#fff; position:relative; overflow:hidden}
+    .cta-box::after{content:""; position:absolute; inset:0; background:radial-gradient(80% 120% at 80% 10%, rgba(18,179,166,.4), transparent 60%); pointer-events:none}
+    .cta-box h2{position:relative; font-size:clamp(28px,4.5vw,46px); letter-spacing:-.02em; margin-bottom:14px; color:#fff}
+    .cta-box p{position:relative; color:rgba(255,255,255,.86); font-size:19px; max-width:52ch; margin:0 auto 30px}
+    .cta-box .btn-primary{position:relative; background:#fff; color:var(--accent); box-shadow:0 14px 34px -14px rgba(0,0,0,.5)}
+    .cta-box .btn-primary:hover{background:#fff}
+    .cta-box .cta-sub{position:relative; font-family:var(--ff-mono); font-size:12.5px; letter-spacing:.04em; color:rgba(255,255,255,.75); margin-top:18px}
+
+    /* ===================== Footer ===================== */
+    footer{background:var(--ink); color:#c6cbde; padding:clamp(56px,8vw,90px) 0 40px}
+    .foot-grid{display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:40px}
+    .foot-brand .mark{width:34px; height:34px; border-radius:9px; margin-bottom:16px}
+    .foot-brand .t{font-family:var(--ff-display); font-size:21px; color:#fff; font-weight:600; line-height:1.2; max-width:24ch}
+    .foot-brand .d{font-family:var(--ff-mono); font-size:12px; color:#8890b0; margin-top:12px; letter-spacing:.02em}
+    .foot-col h4{font-family:var(--ff-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#8890b0; margin-bottom:16px; font-weight:500}
+    .foot-col ul{list-style:none; margin:0; padding:0; display:grid; gap:11px}
+    .foot-col a{font-family:var(--ff-mono); font-size:13px; color:#c6cbde; text-decoration:none; transition:color .2s}
+    .foot-col a:hover{color:var(--accent-lt)}
+    .foot-bottom{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-top:56px; padding-top:26px; border-top:1px solid rgba(255,255,255,.1); font-family:var(--ff-mono); font-size:12px; color:#8890b0}
+
+    /* ===================== Reveal animation ===================== */
+    [data-reveal]{opacity:0; transform:translateY(22px); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)}
+    [data-reveal].in{opacity:1; transform:none}
+    @media (prefers-reduced-motion: reduce){ [data-reveal]{opacity:1; transform:none; transition:none} }
+
+    /* ===================== Responsive ===================== */
+    @media (max-width:900px){
+      body{font-size:18px}
+      .tracks, .cfp-grid, .funding-inner, .about-grid{grid-template-columns:1fr}
+      .cfp-side{position:static}
+      .people{grid-template-columns:repeat(2,1fr)}
+      .panelists{grid-template-columns:repeat(2,1fr)}
+      .foot-grid{grid-template-columns:1fr 1fr}
+      .foot-brand{grid-column:1 / -1}
+    }
+    @media (max-width:640px){
+      .topics-grid{grid-template-columns:1fr}
+      .topics-grid .topic{border-right:0}
+      .people{grid-template-columns:1fr}
+      .panelists{grid-template-columns:1fr 1fr}
+      .stat-row{grid-template-columns:1fr 1fr}
+      .tl-item{grid-template-columns:1fr; gap:4px}
+      .sched-row{grid-template-columns:104px 1fr; gap:12px}
+      .sched-row .tag{grid-column:2; justify-self:start}
+      .foot-grid{grid-template-columns:1fr 1fr}
+      .hero-actions{flex-direction:column; align-items:stretch}
+      .hero-actions .btn{justify-content:center}
+      .hero-actions .contact{text-align:center; margin-top:6px}
+    }
+    @media (max-width:420px){
+      .panelists{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#about">Skip to content</a>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#home" aria-label="Beyond Next-Token Prediction, a NeurIPS 2026 workshop — home">
+        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="#5b53ff"/><g fill="#fff"><rect x="5" y="5" width="6" height="6" rx="1.4" opacity=".4"/><rect x="13" y="5" width="6" height="6" rx="1.4" opacity=".95"/><rect x="21" y="5" width="6" height="6" rx="1.4" opacity=".55"/><rect x="5" y="13" width="6" height="6" rx="1.4" opacity=".9"/><rect x="13" y="13" width="6" height="6" rx="1.4" opacity=".45"/><rect x="21" y="13" width="6" height="6" rx="1.4" opacity=".95"/><rect x="5" y="21" width="6" height="6" rx="1.4" opacity=".55"/><rect x="13" y="21" width="6" height="6" rx="1.4" opacity=".95"/><rect x="21" y="21" width="6" height="6" rx="1.4" opacity=".35"/></g></svg>
+        <span><b>Beyond Next-Token Prediction</b><br><span class="sub">NeurIPS 2026 Workshop</span></span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">Overview</a></li>
+        <li><a href="#topics">Scope</a></li>
+        <li><a href="#cfp">CFP</a></li>
+        <li><a href="#dates">Dates</a></li>
+        <li><a href="#schedule">Schedule</a></li>
+        <li><a href="#speakers">Speakers</a></li>
+        <li><a href="#organizers">Organizers</a></li>
+        <li><a class="cta" href="https://openreview.net/" target="_blank" rel="noopener">Submit ↗</a></li>
+      </ul>
+    </div>
+  </header>
+  <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+
+  <main>
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" id="home">
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-veil" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <p class="kicker"><span class="dot" aria-hidden="true"></span> A NeurIPS 2026 Workshop · Location:&nbsp;<span class="tbd" title="Venue not yet assigned — organizer preference Sydney, then Atlanta">TBD</span></p>
+        <h1>Beyond Next&#8209;Token Prediction:<br><span class="grad">Diffusion &amp; Flow Models</span> for Next&#8209;Generation Decoding</h1>
+        <p class="sub">Beyond next-token prediction — exploring the theory, algorithms, and applications of discrete diffusion and flow models for parallel, non-causal generation.</p>
+        <div class="chips">
+          <div class="chip accent"><span class="k">Submissions due</span><span class="v">Aug 29, 2026</span></div>
+          <div class="chip"><span class="k">Notification</span><span class="v">Sep 28, 2026</span></div>
+          <div class="chip"><span class="k">Workshop</span><span class="v">Dec 11–12, 2026</span></div>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://openreview.net/" target="_blank" rel="noopener">Submit to OpenReview <span class="arr" aria-hidden="true">↗</span></a>
+          <a class="btn btn-ghost" href="#cfp">Read the call for papers</a>
+          <a class="contact" href="#organizers">Contact the organizers</a>
+        </div>
+      </div>
+      <div class="scroll-hint" aria-hidden="true"><span>Scroll</span><span class="line"></span></div>
+    </section>
+
+    <!-- ===================== OVERVIEW ===================== -->
+    <section id="about" class="pad-y">
+      <div class="wrap about-grid">
+        <div class="about-copy" data-reveal>
+          <p class="eyebrow"><span class="idx">01</span> Overview</p>
+          <h2 class="h">Generation is escaping the <span class="it">left-to-right</span> straitjacket.</h2>
+          <div style="margin-top:28px">
+            <p>For a decade, large language models have produced text one token at a time, strictly left to right. This autoregressive recipe is remarkably general — but it is also inherently sequential, forcing every output through a single causal chain and every improvement through a bigger, faster version of the same loop. Discrete diffusion and flow models break that constraint. They generate by iterative denoising: refining many positions in parallel, revisiting earlier choices as a sample takes shape, and decoupling the order of computation from the order of the text.</p>
+            <p>The result is a fundamentally different computational profile — non-causal, parallel, and controllable — backed by fast-growing evidence that it can rival next-token prediction at scale. This workshop convenes the researchers building that future, and deliberately joins two conversations that too often happen apart: the <b>theory and algorithms</b> that make discrete generative models work, and the <b>applications and systems</b> that put them to use. Our aim is a venue where foundational depth and practical breadth inform each other — and where junior and industry researchers are as central as established groups.</p>
+          </div>
+        </div>
+        <div class="tracks" data-reveal>
+          <article class="track">
+            <span class="tno">Track 01</span>
+            <h3>Depth <em>— Theories &amp; Algorithms</em></h3>
+            <p class="desc">Discrete diffusion and flow models at the intersection of generative modeling, optimal transport, and stochastic optimal control.</p>
+            <dl>
+              <div><dt>Generative Modeling</dt><dd>Discrete diffusion &amp; flow models, optimal transport, optimal control, Schrödinger bridges.</dd></div>
+              <div><dt>Probabilistic Inference</dt><dd>Discrete diffusion samplers, adjoint-based samplers, advanced MCMC, variational inference.</dd></div>
+            </dl>
+          </article>
+          <article class="track">
+            <span class="tno">Track 02</span>
+            <h3>Breadth <em>— Applications &amp; Systems</em></h3>
+            <p class="desc">Novel applications and scalable systems that exploit non-causal, parallel generation.</p>
+            <dl>
+              <div><dt>Applications</dt><dd>AI for science, multimodal generation, reward alignment, inverse problems, benchmarks &amp; datasets.</dd></div>
+              <div><dt>Systems &amp; Empirical Analysis</dt><dd>Foundation models, large-scale training/inference, network architectures.</dd></div>
+            </dl>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ===================== TOPICS ===================== -->
+    <section id="topics" class="pad-y">
+      <div class="wrap">
+        <div data-reveal>
+          <p class="eyebrow"><span class="idx">02</span> Scope</p>
+          <h2 class="h">Topics of <span class="it">interest</span>.</h2>
+          <p class="lead" style="margin-top:22px">We welcome contributions across the full arc from mathematical foundations to deployed systems. Non-exhaustive, and cross-cutting work is encouraged.</p>
+        </div>
+        <div class="topics-grid" data-reveal style="margin-top:36px">
+          <div class="topic"><span class="n">I</span><span class="t">Discrete diffusion &amp; flow models</span></div>
+          <div class="topic"><span class="n">II</span><span class="t">Optimal transport</span></div>
+          <div class="topic"><span class="n">III</span><span class="t">Optimal &amp; stochastic control</span></div>
+          <div class="topic"><span class="n">IV</span><span class="t">Schrödinger bridges</span></div>
+          <div class="topic"><span class="n">V</span><span class="t">Discrete diffusion &amp; adjoint-based samplers</span></div>
+          <div class="topic"><span class="n">VI</span><span class="t">MCMC &amp; variational inference</span></div>
+          <div class="topic"><span class="n">VII</span><span class="t">AI for science</span></div>
+          <div class="topic"><span class="n">VIII</span><span class="t">Multimodal generation</span></div>
+          <div class="topic"><span class="n">IX</span><span class="t">Reward alignment</span></div>
+          <div class="topic"><span class="n">X</span><span class="t">Inverse problems</span></div>
+          <div class="topic"><span class="n">XI</span><span class="t">Benchmarks &amp; datasets</span></div>
+          <div class="topic"><span class="n">XII</span><span class="t">Foundation models &amp; large-scale training/inference</span></div>
+          <div class="topic"><span class="n">XIII</span><span class="t">Architectures for non-autoregressive generation</span></div>
+          <div class="topic"><span class="n">+</span><span class="t">…and adjacent directions in parallel, non-causal decoding</span></div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ===================== CFP ===================== -->
+    <section id="cfp" class="pad-y">
+      <div class="wrap">
+        <div data-reveal>
+          <p class="eyebrow"><span class="idx">03</span> Call for Papers</p>
+          <h2 class="h">Share your <span class="it">work</span>.</h2>
+        </div>
+        <div class="cfp-grid" style="margin-top:36px">
+          <div class="cfp-copy" data-reveal>
+            <h3>What to submit</h3>
+            <p>We invite original, unpublished research as well as recent work relevant to the workshop's scope — spanning both tracks, from theory and algorithms to applications and systems. Submissions are made through OpenReview.</p>
+            <ul class="cfp-list">
+              <li><b>Full papers</b> and <b>short papers</b> are welcome. <span class="tbd" title="Page limits not yet finalized — will be stated in the official call">Exact page limits are TBD</span> and will be posted with the official call.</li>
+              <li><b>Peer review.</b> Each submission receives <b>3 reviews</b>; each reviewer handles at most 3 papers.</li>
+              <li><b>Mutual-review policy.</b> At least one qualified author per submission serves as a reviewer.</li>
+              <li><b>Program Committee</b> resolves conflicts and recommends decisions, with the NeurIPS conflict-of-interest policy enforced.</li>
+              <li><b>Travel grants</b> for students and early-career researchers with accepted papers.</li>
+            </ul>
+            <h3>Presentation</h3>
+            <p>Accepted papers are presented as posters, with a selection of <b>contributed orals</b>. A <b>Best Paper Award</b> recognizes outstanding work.</p>
+          </div>
+          <aside class="cfp-side" data-reveal aria-label="Call for papers at a glance">
+            <div class="stat-row">
+              <div class="stat"><div class="num">~100</div><div class="lab">Accepted papers<br>(poster sessions)</div></div>
+              <div class="stat"><div class="num">6</div><div class="lab">Contributed orals<br>(10 min each)</div></div>
+              <div class="stat"><div class="num">3</div><div class="lab">Reviews per<br>submission</div></div>
+              <div class="stat"><div class="num">200<span class="u">–</span>500</div><div class="lab">Expected<br>attendance</div></div>
+            </div>
+            <p class="cfp-note">Around <b>200</b> submissions are expected, with roughly <b>100</b> accepted for poster sessions and <b>1</b> Best Paper Award. Submission portal: <span class="tbd" title="OpenReview group URL not yet issued">OpenReview link TBD</span>.</p>
+            <div class="cfp-cta">
+              <a class="btn btn-primary" href="https://openreview.net/" target="_blank" rel="noopener">Go to OpenReview <span class="arr" aria-hidden="true">↗</span></a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== DATES ===================== -->
+    <section id="dates" class="dark pad-y">
+      <div class="wrap">
+        <div data-reveal>
+          <p class="eyebrow"><span class="idx">04</span> Important Dates</p>
+          <h2 class="h">Mark your <span class="it">calendar</span>.</h2>
+        </div>
+        <div class="timeline" data-reveal>
+          <div class="tl-item"><span class="tl-date">Jul 20, 2026</span><span class="tl-what">Call for Papers &amp; submissions open <span class="sm">OpenReview</span></span></div>
+          <div class="tl-item key"><span class="tl-date">Aug 29, 2026</span><span class="tl-what">Paper submission deadline</span></div>
+          <div class="tl-item"><span class="tl-date">Aug 30 – Sep 20, 2026</span><span class="tl-what">Peer review period</span></div>
+          <div class="tl-item"><span class="tl-date">Sep 21 – 25, 2026</span><span class="tl-what">Meta-review &amp; discussion</span></div>
+          <div class="tl-item key"><span class="tl-date">Sep 28, 2026</span><span class="tl-what">Accept / reject notification</span></div>
+          <div class="tl-item"><span class="tl-date">Oct 20, 2026</span><span class="tl-what">Camera-ready deadline <span class="sm">tentative</span></span></div>
+          <div class="tl-item key"><span class="tl-date">Dec 11–12, 2026</span><span class="tl-what">Workshop @ NeurIPS 2026 <span class="sm">one day, within this window</span></span></div>
+        </div>
+        <p class="aoe-note">All deadlines are 23:59 <abbr title="Anywhere on Earth">AoE</abbr>. Dates are indicative and subject to change.</p>
+      </div>
+    </section>
+
+    <!-- ===================== SCHEDULE ===================== -->
+    <section id="schedule" class="pad-y">
+      <div class="wrap">
+        <div data-reveal>
+          <p class="eyebrow"><span class="idx">05</span> Schedule</p>
+          <h2 class="h">A one-day <span class="it">program</span>.</h2>
+          <p class="lead" style="margin-top:22px">A full day of invited talks, contributed orals, two poster sessions, and a panel. Speaker slot assignments are being finalized.</p>
+        </div>
+        <div class="sched" data-reveal style="margin-top:34px">
+          <div class="sched-row headline"><span class="time">08:50–09:00</span><span class="what">Opening remarks</span><span class="tag">Welcome</span></div>
+          <div class="sched-row talk"><span class="time">09:00–09:30</span><span class="what">Invited Talk 1</span><span class="tag">Keynote</span></div>
+          <div class="sched-row talk"><span class="time">09:30–10:00</span><span class="what">Invited Talk 2</span><span class="tag">Keynote</span></div>
+          <div class="sched-row break"><span class="time">10:00–11:00</span><span class="what">Poster session 1 &amp; break</span><span class="tag">Posters</span></div>
+          <div class="sched-row talk"><span class="time">11:00–11:30</span><span class="what">Invited Talk 3</span><span class="tag">Keynote</span></div>
+          <div class="sched-row talk"><span class="time">11:30–12:00</span><span class="what">Invited Talk 4</span><span class="tag">Keynote</span></div>
+          <div class="sched-row oral"><span class="time">12:00–12:30</span><span class="what">Oral session 1 <span style="color:var(--text-soft)">(3 papers)</span></span><span class="tag">Orals</span></div>
+          <div class="sched-row break"><span class="time">12:30–13:30</span><span class="what">Lunch</span><span class="tag">Break</span></div>
+          <div class="sched-row headline"><span class="time">13:30–14:30</span><span class="what">Panel discussion</span><span class="tag">Panel</span></div>
+          <div class="sched-row talk"><span class="time">14:30–15:00</span><span class="what">Invited Talk 5</span><span class="tag">Keynote</span></div>
+          <div class="sched-row talk"><span class="time">15:00–15:30</span><span class="what">Invited Talk 6</span><span class="tag">Keynote</span></div>
+          <div class="sched-row oral"><span class="time">15:30–16:00</span><span class="what">Oral session 2 <span style="color:var(--text-soft)">(3 papers)</span></span><span class="tag">Orals</span></div>
+          <div class="sched-row break"><span class="time">16:00–17:00</span><span class="what">Poster session 2 &amp; social</span><span class="tag">Posters</span></div>
+          <div class="sched-row headline"><span class="time">17:00–17:10</span><span class="what">Awards &amp; closing</span><span class="tag">Best Paper</span></div>
+        </div>
+        <p class="sched-legend">Tentative program · times shown in the local conference time zone. Invited-talk slots will be mapped to speakers closer to the event.</p>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ===================== SPEAKERS ===================== -->
+    <section id="speakers" class="pad-y">
+      <div class="wrap">
+        <div data-reveal>
+          <p class="eyebrow"><span class="idx">06</span> Invited Speakers</p>
+          <h2 class="h">Six voices <span class="it">shaping the field</span>.</h2>
+          <p class="lead" style="margin-top:22px">All speakers are confirmed. Talk titles are tentative and may be refined before the workshop.</p>
+        </div>
+        <div class="people" data-reveal style="margin-top:38px">
+          <!-- Ermon -->
+          <article class="card">
+            <div class="card-head">
+              <div class="avatar g1"><span class="mono-initials">SE</span><img src="assets/people/ermon.jpg" alt="Portrait of Stefano Ermon" loading="lazy" onerror="this.remove()"></div>
+              <div class="card-id"><div class="name">Stefano Ermon</div><div class="aff">Stanford University</div><span class="badge"><span class="d"></span>Confirmed</span></div>
+            </div>
+            <div class="card-divider"></div>
+            <p class="talk"><span class="lbl">Tentative talk</span>Production-Grade Diffusion LLMs</p>
+            <p class="bio">Associate Professor of Computer Science at Stanford, where his group advances generative modeling, probabilistic inference, and diffusion methods. His recent work pushes diffusion language models toward production-scale text generation.</p>
+          </article>
+          <!-- Molchanov -->
+          <article class="card">
+            <div class="card-head">
+              <div class="avatar g2"><span class="mono-initials">PM</span><img src="assets/people/molchanov.jpg" alt="Portrait of Pavlo Molchanov" loading="lazy" onerror="this.remove()"></div>
+              <div class="card-id"><div class="name">Pavlo Molchanov</div><div class="aff">NVIDIA Research · Research Director</div><span class="badge"><span class="d"></span>Confirmed</span></div>
+            </div>
+            <div class="card-divider"></div>
+            <p class="talk"><span class="lbl">Tentative talk</span>Efficient Diffusion Language Models from Autoregressive LLMs</p>
+            <p class="bio">Research Director at NVIDIA Research, focused on efficient deep learning — model compression, acceleration, and foundation models. His talk explores distilling fast diffusion language models from autoregressive LLMs.</p>
+          </article>
+          <!-- van den Berg -->
+          <article class="card">
+            <div class="card-head">
+              <div class="avatar g3"><span class="mono-initials">RB</span><img src="assets/people/vandenberg.jpg" alt="Portrait of Rianne van den Berg" loading="lazy" onerror="this.remove()"></div>
+              <div class="card-id"><div class="name">Rianne van den Berg</div><div class="aff">Microsoft Research · Sr. Principal Research Manager</div><span class="badge"><span class="d"></span>Confirmed</span></div>
+            </div>
+            <div class="card-divider"></div>
+            <p class="talk"><span class="lbl">Tentative talk</span>Diffusion Models for the Natural Sciences</p>
+            <p class="bio">Senior Principal Research Manager at Microsoft Research, known for foundational work on normalizing flows and discrete diffusion. She applies generative models to problems across the natural sciences.</p>
+          </article>
+          <!-- Chen -->
+          <article class="card">
+            <div class="card-head">
+              <div class="avatar g1"><span class="mono-initials">SC</span><img src="assets/people/chen.jpg" alt="Portrait of Sitan Chen" loading="lazy" onerror="this.remove()"></div>
+              <div class="card-id"><div class="name">Sitan Chen</div><div class="aff">Harvard University</div><span class="badge"><span class="d"></span>Confirmed</span></div>
+            </div>
+            <div class="card-divider"></div>
+            <p class="talk"><span class="lbl">Tentative talk</span>Eliciting Non-Causal Reasoning in Diffusion Language Models</p>
+            <p class="bio">Assistant Professor at Harvard working on the theoretical foundations of machine learning, including the analysis of diffusion models and sampling algorithms, and how non-causal generation enables new forms of reasoning.</p>
+          </article>
+          <!-- Li -->
+          <article class="card">
+            <div class="card-head">
+              <div class="avatar g2"><span class="mono-initials">CL</span><img src="assets/people/li.jpg" alt="Portrait of Chongxuan Li" loading="lazy" onerror="this.remove()"></div>
+              <div class="card-id"><div class="name">Chongxuan Li</div><div class="aff">Renmin University · Gaoling School of AI</div><span class="badge"><span class="d"></span>Confirmed</span></div>
+            </div>
+            <div class="card-divider"></div>
+            <p class="talk"><span class="lbl">Tentative talk</span>LLaDA: A New Paradigm for Large Language Modeling</p>
+            <p class="bio">Associate Professor at the Gaoling School of AI, Renmin University of China, specializing in deep generative models and diffusion. His group developed LLaDA, a large language diffusion model.</p>
+          </article>
+          <!-- Shi -->
+          <article class="card">
+            <div class="card-head">
+              <div class="avatar g3"><span class="mono-initials">JS</span><img src="assets/people/shi.jpg" alt="Portrait of Jiaxin Shi" loading="lazy" onerror="this.remove()"></div>
+              <div class="card-id"><div class="name">Jiaxin Shi</div><div class="aff">Meta Superintelligence Labs</div><span class="badge"><span class="d"></span>Confirmed</span></div>
+            </div>
+            <div class="card-divider"></div>
+            <p class="talk"><span class="lbl">Tentative talk</span>Synthesizing Autoregression and Diffusion for Flexible Generation and Planning</p>
+            <p class="bio">Researcher at Meta Superintelligence Labs working on probabilistic machine learning and generative models, unifying autoregression and diffusion for flexible, controllable generation and planning.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ===================== PANEL ===================== -->
+    <section id="panel" class="pad-y">
+      <div class="wrap">
+        <div data-reveal>
+          <p class="eyebrow"><span class="idx">07</span> Panel</p>
+          <h2 class="h">A conversation on <span class="it">what comes next</span>.</h2>
+          <p class="lead" style="margin-top:22px">A moderated discussion on the open problems and near-term future of diffusion and flow models. All panelists confirmed.</p>
+        </div>
+        <div data-reveal style="margin-top:34px">
+          <div class="panel-mod">
+            <div class="avatar g1"><span class="mono-initials">MS</span><img src="assets/people/sung.jpg" alt="Portrait of Minhyuk Sung" loading="lazy" onerror="this.remove()"></div>
+            <div>
+              <div class="role">Moderator</div>
+              <div class="name">Minhyuk Sung</div>
+              <div class="aff">KAIST · Workshop Organizer</div>
+            </div>
+          </div>
+          <div class="panelists">
+            <div class="pcard">
+              <div class="avatar g2"><span class="mono-initials">GL</span><img src="assets/people/liu.jpg" alt="Portrait of Guan-Horng Liu" loading="lazy" onerror="this.remove()"></div>
+              <div class="name">Guan-Horng Liu</div><div class="aff">Meta Superintelligence Labs</div>
+            </div>
+            <div class="pcard">
+              <div class="avatar g3"><span class="mono-initials">AG</span><img src="assets/people/grover.jpg" alt="Portrait of Aditya Grover" loading="lazy" onerror="this.remove()"></div>
+              <div class="name">Aditya Grover</div><div class="aff">UCLA</div>
+            </div>
+            <div class="pcard">
+              <div class="avatar g1"><span class="mono-initials">AV</span><img src="assets/people/vahdat.jpg" alt="Portrait of Arash Vahdat" loading="lazy" onerror="this.remove()"></div>
+              <div class="name">Arash Vahdat</div><div class="aff">NVIDIA Research</div>
+            </div>
+            <div class="pcard">
+              <div class="avatar g2"><span class="mono-initials">AD</span><img src="assets/people/doucet.jpg" alt="Portrait of Arnaud Doucet" loading="lazy" onerror="this.remove()"></div>
+              <div class="name">Arnaud Doucet</div><div class="aff">Google DeepMind</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ===================== ORGANIZERS ===================== -->
+    <section id="organizers" class="pad-y">
+      <div class="wrap">
+        <div data-reveal>
+          <p class="eyebrow"><span class="idx">08</span> Organizers</p>
+          <h2 class="h">Brought to you by <span class="it">the organizing team</span>.</h2>
+        </div>
+        <div class="people" data-reveal style="margin-top:38px">
+          <article class="card">
+            <div class="card-head">
+              <div class="avatar g1"><span class="mono-initials">MS</span><img src="assets/people/sung.jpg" alt="Portrait of Minhyuk Sung" loading="lazy" onerror="this.remove()"></div>
+              <div class="card-id"><div class="name">Minhyuk Sung</div><div class="aff">KAIST</div></div>
+            </div>
+            <div class="card-divider"></div>
+            <p class="bio">Associate Professor at KAIST working on 3D vision, computer graphics, and generative models. Serves as the workshop's panel moderator.</p>
+            <a class="email" href="mailto:mhsung@kaist.ac.kr">mhsung@kaist.ac.kr</a>
+          </article>
+          <article class="card">
+            <div class="card-head">
+              <div class="avatar g2"><span class="mono-initials">JK</span><img src="assets/people/kim.jpg" alt="Portrait of Jaihoon Kim" loading="lazy" onerror="this.remove()"></div>
+              <div class="card-id"><div class="name">Jaihoon Kim</div><div class="aff">KAIST · Netflix Research (Intern)</div></div>
+            </div>
+            <div class="card-divider"></div>
+            <p class="bio">PhD candidate at KAIST and Research Scientist Intern at Netflix Research, working on diffusion models and generative AI.</p>
+            <a class="email" href="mailto:jh27kim@kaist.ac.kr">jh27kim@kaist.ac.kr</a>
+          </article>
+          <article class="card">
+            <div class="card-head">
+              <div class="avatar g3"><span class="mono-initials">MT</span><img src="assets/people/tao.jpg" alt="Portrait of Molei Tao" loading="lazy" onerror="this.remove()"></div>
+              <div class="card-id"><div class="name">Molei Tao</div><div class="aff">Georgia Tech</div></div>
+            </div>
+            <div class="card-divider"></div>
+            <p class="bio">Associate Professor at Georgia Tech working on applied mathematics, dynamical systems, optimization, and the theory of generative models.</p>
+            <a class="email" href="mailto:mtao@gatech.edu">mtao@gatech.edu</a>
+          </article>
+          <article class="card">
+            <div class="card-head">
+              <div class="avatar g1"><span class="mono-initials">PC</span><img src="assets/people/chatterjee.jpg" alt="Portrait of Pranam Chatterjee" loading="lazy" onerror="this.remove()"></div>
+              <div class="card-id"><div class="name">Pranam Chatterjee</div><div class="aff">University of Pennsylvania</div></div>
+            </div>
+            <div class="card-divider"></div>
+            <p class="bio">Assistant Professor at the University of Pennsylvania developing generative models for biological and therapeutic design.</p>
+            <a class="email" href="mailto:pranam@seas.upenn.edu">pranam@seas.upenn.edu</a>
+          </article>
+          <article class="card">
+            <div class="card-head">
+              <div class="avatar g2"><span class="mono-initials">ST</span><img src="assets/people/tang.jpg" alt="Portrait of Sophia Tang" loading="lazy" onerror="this.remove()"></div>
+              <div class="card-id"><div class="name">Sophia Tang</div><div class="aff">University of Pennsylvania</div></div>
+            </div>
+            <div class="card-divider"></div>
+            <p class="bio">PhD student at the University of Pennsylvania researching generative models for biomolecular design.</p>
+            <a class="email" href="mailto:sophtang@seas.upenn.edu">sophtang@seas.upenn.edu</a>
+          </article>
+          <article class="card">
+            <div class="card-head">
+              <div class="avatar g3"><span class="mono-initials">ND</span><img src="assets/people/dey.jpg" alt="Portrait of Nolan Dey" loading="lazy" onerror="this.remove()"></div>
+              <div class="card-id"><div class="name">Nolan Dey</div><div class="aff">Cerebras Systems</div></div>
+            </div>
+            <div class="card-divider"></div>
+            <p class="bio">Research Scientist at Cerebras Systems working on large-scale training, scaling laws, and efficient deep learning.</p>
+            <a class="email" href="mailto:nolan@cerebras.net">nolan@cerebras.net</a>
+          </article>
+          <article class="card">
+            <div class="card-head">
+              <div class="avatar g1"><span class="mono-initials">SS</span><img src="assets/people/sahoo.jpg" alt="Portrait of Subham Sekhar Sahoo" loading="lazy" onerror="this.remove()"></div>
+              <div class="card-id"><div class="name">Subham Sekhar Sahoo</div><div class="aff">MBZUAI · US Labs</div></div>
+            </div>
+            <div class="card-divider"></div>
+            <p class="bio">Researcher at MBZUAI focused on discrete diffusion language models and efficient generative modeling.</p>
+            <a class="email" href="mailto:subham.sahoo@mbzuai.ac.ae">subham.sahoo@mbzuai.ac.ae</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SPONSORS ===================== -->
+    <section id="funding" class="dark pad-y">
+      <div class="wrap funding-inner">
+        <div data-reveal>
+          <p class="eyebrow"><span class="idx">09</span> Sponsors &amp; Support</p>
+          <span class="sponsor-status"><span class="d"></span>In discussion</span>
+          <h2 class="h">Support that <span class="it">widens the door</span>.</h2>
+          <p style="margin-top:20px">We are in conversation with industry partners to fund the workshop, with support earmarked for <b>diversity, access, and travel grants</b> for students and early-career researchers. Sponsors will be announced here once confirmed.</p>
+          <p style="font-family:var(--ff-mono); font-size:13px; color:#8890b0; letter-spacing:.02em;">Interested in supporting the workshop? <a href="#organizers" style="color:var(--accent-lt); text-decoration:underline; text-underline-offset:3px;">Reach out to the organizers ↗</a></p>
+        </div>
+        <div class="sponsor-grid" data-reveal>
+          <div class="sponsor-box"><div class="nm">Microsoft</div><div class="st">Preliminary talks</div></div>
+          <div class="sponsor-box"><div class="nm">Cerebras Systems</div><div class="st">In discussion</div></div>
+          <div class="sponsor-box"><div class="nm">NVIDIA</div><div class="st">In discussion</div></div>
+          <div class="sponsor-box"><div class="nm">Inception Labs</div><div class="st">In discussion</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CTA ===================== -->
+    <section class="pad-y">
+      <div class="wrap">
+        <div class="cta-box" data-reveal>
+          <h2>Ready to submit?</h2>
+          <p>Join us at NeurIPS 2026 to push generation beyond next-token prediction. Submissions open <b>July 20</b> and close <b>August 29, 2026</b>.</p>
+          <a class="btn btn-primary" href="https://openreview.net/" target="_blank" rel="noopener">Submit on OpenReview <span class="arr" aria-hidden="true">↗</span></a>
+          <p class="cta-sub">OpenReview submission link — <span class="tbd" title="OpenReview group URL not yet issued" style="color:rgba(255,255,255,.85)">TBD, coming soon</span></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#5b53ff"/><g fill="#fff"><rect x="5" y="5" width="6" height="6" rx="1.4" opacity=".4"/><rect x="13" y="5" width="6" height="6" rx="1.4" opacity=".95"/><rect x="21" y="5" width="6" height="6" rx="1.4" opacity=".55"/><rect x="5" y="13" width="6" height="6" rx="1.4" opacity=".9"/><rect x="13" y="13" width="6" height="6" rx="1.4" opacity=".45"/><rect x="21" y="13" width="6" height="6" rx="1.4" opacity=".95"/><rect x="5" y="21" width="6" height="6" rx="1.4" opacity=".55"/><rect x="13" y="21" width="6" height="6" rx="1.4" opacity=".95"/><rect x="21" y="21" width="6" height="6" rx="1.4" opacity=".35"/></g></svg>
+          <div class="t">Beyond Next Token Prediction: Diffusion &amp; Flow Models for Next-Generation Decoding</div>
+          <div class="d">A NeurIPS 2026 Workshop · Dec 11–12, 2026 · Location TBD</div>
+        </div>
+        <div class="foot-col">
+          <h4>Workshop</h4>
+          <ul>
+            <li><a href="#about">Overview</a></li>
+            <li><a href="#topics">Scope</a></li>
+            <li><a href="#cfp">Call for Papers</a></li>
+            <li><a href="#dates">Important Dates</a></li>
+            <li><a href="#schedule">Schedule</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>People</h4>
+          <ul>
+            <li><a href="#speakers">Speakers</a></li>
+            <li><a href="#panel">Panel</a></li>
+            <li><a href="#organizers">Organizers</a></li>
+            <li><a href="#funding">Sponsors</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="https://openreview.net/" target="_blank" rel="noopener">Submit ↗</a></li>
+            <li><a href="mailto:mhsung@kaist.ac.kr">Email organizers</a></li>
+            <li><a href="https://neurips.cc/" target="_blank" rel="noopener">NeurIPS 2026 ↗</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 Beyond Next-Token Prediction Workshop. All rights reserved.</span>
+        <span>Built for the NeurIPS 2026 community.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      "use strict";
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ---------- Nav scroll state ---------- */
+      var nav = document.getElementById('nav');
+      var onScroll = function(){
+        if(window.scrollY > 40){ nav.classList.add('scrolled'); }
+        else{ nav.classList.remove('scrolled'); }
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, {passive:true});
+
+      /* ---------- Mobile drawer ---------- */
+      var toggle = document.getElementById('navToggle');
+      var links = document.getElementById('navLinks');
+      var backdrop = document.getElementById('drawerBackdrop');
+      function setDrawer(open){
+        links.classList.toggle('open', open);
+        backdrop.classList.toggle('open', open);
+        backdrop.hidden = !open;
+        toggle.setAttribute('aria-expanded', open ? 'true':'false');
+        toggle.textContent = open ? '✕' : '☰';
+        document.body.style.overflow = open ? 'hidden' : '';
+      }
+      toggle.addEventListener('click', function(){ setDrawer(!links.classList.contains('open')); });
+      backdrop.addEventListener('click', function(){ setDrawer(false); });
+      links.addEventListener('click', function(e){ if(e.target.tagName === 'A'){ setDrawer(false); } });
+      window.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ setDrawer(false); } });
+
+      /* ---------- Reveal on scroll ---------- */
+      var revealEls = document.querySelectorAll('[data-reveal]');
+      if(reduceMotion || !('IntersectionObserver' in window)){
+        revealEls.forEach(function(el){ el.classList.add('in'); });
+      } else {
+        var ro = new IntersectionObserver(function(entries){
+          entries.forEach(function(en){
+            if(en.isIntersecting){ en.target.classList.add('in'); ro.unobserve(en.target); }
+          });
+        }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+        revealEls.forEach(function(el){ ro.observe(el); });
+      }
+
+      /* ---------- Active nav link ---------- */
+      var navAnchors = Array.prototype.slice.call(document.querySelectorAll('.nav-links a[href^="#"]'));
+      var sectionMap = {};
+      navAnchors.forEach(function(a){
+        var id = a.getAttribute('href').slice(1);
+        var sec = document.getElementById(id);
+        if(sec){ sectionMap[id] = a; }
+      });
+      if('IntersectionObserver' in window){
+        var so = new IntersectionObserver(function(entries){
+          entries.forEach(function(en){
+            if(en.isIntersecting){
+              navAnchors.forEach(function(a){ a.classList.remove('active'); });
+              var a = sectionMap[en.target.id];
+              if(a){ a.classList.add('active'); }
+            }
+          });
+        }, {rootMargin:'-45% 0px -50% 0px'});
+        Object.keys(sectionMap).forEach(function(id){ so.observe(document.getElementById(id)); });
+      }
+
+      /* ---------- Hero denoising canvas ---------- */
+      var canvas = document.getElementById('hero-canvas');
+      if(canvas && canvas.getContext){
+        var ctx = canvas.getContext('2d');
+        var W=0,H=0,dpr=1,cell=40,cols=0,rows=0,cells=[];
+        // resolved-cell colors (on dark ink)
+        var COLORS = ['#5b53ff','#6f77ff','#12b3a6','#2b3663','#3a4680'];
+        function rrect(x,y,w,h,r){
+          ctx.beginPath();
+          ctx.moveTo(x+r,y);
+          ctx.arcTo(x+w,y,x+w,y+h,r);
+          ctx.arcTo(x+w,y+h,x,y+h,r);
+          ctx.arcTo(x,y+h,x,y,r);
+          ctx.arcTo(x,y,x+w,y,r);
+          ctx.closePath();
+        }
+        function build(){
+          var rect = canvas.getBoundingClientRect();
+          W = rect.width; H = rect.height;
+          if(W===0||H===0) return;
+          dpr = Math.min(window.devicePixelRatio||1, 2);
+          canvas.width = Math.floor(W*dpr);
+          canvas.height = Math.floor(H*dpr);
+          ctx.setTransform(dpr,0,0,dpr,0,0);
+          cell = Math.max(30, Math.round(Math.min(W,H)/13));
+          cols = Math.ceil(W/cell)+1;
+          rows = Math.ceil(H/cell)+1;
+          cells = [];
+          for(var y=0;y<rows;y++){
+            for(var x=0;x<cols;x++){
+              // smooth field -> intentional-looking color clusters
+              var f = Math.sin(x*0.55) + Math.cos(y*0.6 + x*0.2);
+              var ci;
+              if(f>1.1) ci=0; else if(f>0.4) ci=1; else if(f<-1.1) ci=2; else if(f<-0.3) ci=3; else ci=4;
+              // reveal order: diagonal-ish base + randomness => parallel, non-causal feel
+              var base = (x/cols)*0.35 + (y/rows)*0.25;
+              cells.push({
+                x:x, y:y, ci:ci,
+                order: Math.max(0, Math.min(1, base + (Math.sin(x*12.9898 + y*78.233)*43758.5453 % 1) * 0.55 )),
+                seed: (x*7 + y*13) % 97
+              });
+            }
+          }
+        }
+        function smooth(t){ t = t<0?0:(t>1?1:t); return t*t*(3-2*t); }
+        var PERIOD = 9200; // ms
+        var last = 0;
+        var startTime = null;
+        function frame(ts){
+          if(startTime===null) startTime = ts;
+          // throttle ~33fps
+          if(ts - last < 30){ rafId = requestAnimationFrame(frame); return; }
+          last = ts;
+          draw((ts - startTime));
+          rafId = requestAnimationFrame(frame);
+        }
+        function draw(elapsed){
+          if(W===0||H===0){ build(); if(W===0) return; }
+          ctx.clearRect(0,0,W,H);
+          var p = (elapsed % PERIOD) / PERIOD; // 0..1
+          var size = cell * 0.68;
+          var pad = (cell - size)/2;
+          for(var i=0;i<cells.length;i++){
+            var c = cells[i];
+            var prog;
+            if(p < 0.60){                    // parallel reveal
+              prog = smooth((p/0.60 - c.order)/0.16);
+            } else if(p < 0.82){             // hold resolved
+              prog = 1;
+            } else {                          // re-noise (reverse order)
+              var rp = (p-0.82)/0.18;
+              prog = 1 - smooth((rp - (1-c.order))/0.16);
+            }
+            var px = c.x*cell + pad;
+            var py = c.y*cell + pad;
+            // resolved block
+            if(prog > 0.02){
+              ctx.globalAlpha = prog * 0.9;
+              ctx.fillStyle = COLORS[c.ci];
+              rrect(px, py, size, size, size*0.22);
+              ctx.fill();
+            }
+            // noise (masked token): flickering dots while unresolved
+            if(prog < 0.98){
+              var noise = (1-prog);
+              ctx.globalAlpha = noise * 0.5;
+              ctx.fillStyle = '#7c84b8';
+              var t = Math.floor(elapsed/90) + c.seed;
+              for(var d=0; d<3; d++){
+                var rx = ((Math.sin((t+d)*12.9 + c.seed)*43758.5)%1+1)%1;
+                var ry = ((Math.sin((t+d)*78.2 + c.seed*3)*43758.5)%1+1)%1;
+                var ds = size*0.13;
+                ctx.fillRect(px + rx*(size-ds), py + ry*(size-ds), ds, ds);
+              }
+            }
+          }
+          ctx.globalAlpha = 1;
+        }
+        function drawStatic(){
+          // tasteful partially-denoised frame for reduced-motion
+          if(W===0||H===0){ build(); if(W===0) return; }
+          ctx.clearRect(0,0,W,H);
+          var size = cell*0.68, pad=(cell-size)/2;
+          for(var i=0;i<cells.length;i++){
+            var c = cells[i];
+            var prog = smooth((0.55 - c.order)/0.3);
+            var px=c.x*cell+pad, py=c.y*cell+pad;
+            if(prog>0.02){
+              ctx.globalAlpha = prog*0.9; ctx.fillStyle=COLORS[c.ci];
+              rrect(px,py,size,size,size*0.22); ctx.fill();
+            }
+            if(prog<0.9){
+              ctx.globalAlpha=(1-prog)*0.4; ctx.fillStyle='#7c84b8';
+              ctx.fillRect(px+size*0.3, py+size*0.3, size*0.14, size*0.14);
+            }
+          }
+          ctx.globalAlpha=1;
+        }
+
+        var rafId=null, running=false;
+        function start(){ if(running||reduceMotion) return; running=true; last=0; startTime=null; rafId=requestAnimationFrame(frame); }
+        function stop(){ running=false; if(rafId){ cancelAnimationFrame(rafId); rafId=null; } }
+
+        build();
+        if(reduceMotion){ drawStatic(); }
+        else { start(); }
+
+        // pause when tab hidden
+        document.addEventListener('visibilitychange', function(){
+          if(document.hidden){ stop(); }
+          else if(!reduceMotion){ start(); }
+        });
+        // debounced resize
+        var rt=null;
+        window.addEventListener('resize', function(){
+          if(rt) clearTimeout(rt);
+          rt = setTimeout(function(){ build(); if(reduceMotion){ drawStatic(); } }, 180);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

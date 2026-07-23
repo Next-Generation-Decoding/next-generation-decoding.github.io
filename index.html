@@ -6,13 +6,13 @@
   Single-file static site. No build step. Deploy on GitHub Pages (relative paths).
 
   TODO / needs organizer confirmation (see OUTPUT.md):
-    - Location (Sydney vs Atlanta vs assigned) + exact single day (11 or 12 Dec)
-    - OpenReview group URL  -> currently placeholder https://openreview.net/
+    - Location: Sydney, Australia (confirmed). Exact single day (11 or 12 Dec) still TBD.
+    - OpenReview group URL  -> placeholder https://openreview.net/ (shown as red TODO)
     - Shared contact email  -> "Contact" links to Organizers section for now
-    - Paper page limits (regular vs short)  -> not stated; kept generic
-    - Sponsor confirmations + logos  -> section marked "In discussion"
+    - Paper page limits  -> shown as red TODO until confirmed
+    - Sponsors  -> "to be announced" placeholder; add logos/teams once confirmed
     - Per-person Google Scholar links; official acronym
-  All unconfirmed values are rendered with a visible "TBD/tentative" treatment.
+  Unconfirmed policies use a red "TODO" mark; other tentative items use "TBD/tentative".
   ============================================================================
 -->
 <head>
@@ -54,7 +54,7 @@
     "endDate": "2026-12-12",
     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
     "eventStatus": "https://schema.org/EventScheduled",
-    "location": { "@type": "Place", "name": "NeurIPS 2026 (location TBD)" },
+    "location": { "@type": "Place", "name": "NeurIPS 2026, Sydney, Australia" },
     "superEvent": { "@type": "Event", "name": "NeurIPS 2026" }
   }
   </script>
@@ -134,6 +134,8 @@
       text-decoration:underline dotted rgba(154,109,22,.5); text-underline-offset:3px; cursor:help;
     }
     section.dark .tbd{color:var(--gold-lt); text-decoration-color:rgba(224,176,85,.5)}
+    .todo{display:inline-block; font-family:var(--ff-mono); font-size:.8em; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#c0392b; background:rgba(192,57,43,.08); border:1px solid rgba(192,57,43,.4); border-radius:5px; padding:1px 7px}
+    section.dark .todo{color:#ff6f61; background:rgba(255,111,97,.12); border-color:rgba(255,111,97,.45)}
 
     /* ===================== Buttons ===================== */
     .btn{
@@ -148,6 +150,8 @@
     .btn-ghost:hover{border-color:var(--accent); color:var(--accent); transform:translateY(-2px)}
     section.dark .btn-ghost{color:#fff; border-color:rgba(255,255,255,.28)}
     section.dark .btn-ghost:hover{border-color:var(--accent-lt); color:var(--accent-lt)}
+    .hero .btn-ghost{color:#fff; border-color:rgba(255,255,255,.4)}
+    .hero .btn-ghost:hover{color:var(--accent-lt); border-color:var(--accent-lt)}
     .btn .arr{font-size:1.05em; line-height:1}
 
     /* ===================== Nav ===================== */
@@ -422,7 +426,7 @@
       <canvas id="hero-canvas" aria-hidden="true"></canvas>
       <div class="hero-veil" aria-hidden="true"></div>
       <div class="hero-inner">
-        <p class="kicker"><span class="dot" aria-hidden="true"></span> A NeurIPS 2026 Workshop · Location:&nbsp;<span class="tbd" title="Venue not yet assigned — organizer preference Sydney, then Atlanta">TBD</span></p>
+        <p class="kicker"><span class="dot" aria-hidden="true"></span> A NeurIPS 2026 Workshop · Sydney, Australia</p>
         <h1>Beyond Next&#8209;Token Prediction:<br><span class="grad">Diffusion &amp; Flow Models</span> for Next&#8209;Generation Decoding</h1>
         <p class="sub">Beyond next-token prediction — exploring the theory, algorithms, and applications of discrete diffusion and flow models for parallel, non-causal generation.</p>
         <div class="chips">
@@ -516,7 +520,7 @@
             <h3>What to submit</h3>
             <p>We invite original, unpublished research as well as recent work relevant to the workshop's scope — spanning both tracks, from theory and algorithms to applications and systems. Submissions are made through OpenReview.</p>
             <ul class="cfp-list">
-              <li><b>Full papers</b> and <b>short papers</b> are welcome. <span class="tbd" title="Page limits not yet finalized — will be stated in the official call">Exact page limits are TBD</span> and will be posted with the official call.</li>
+              <li><b>Full papers</b> and <b>short papers</b> are welcome. Page limits <span class="todo">TODO</span> — to be confirmed in the official call.</li>
               <li><b>Peer review.</b> Each submission receives <b>3 reviews</b>; each reviewer handles at most 3 papers.</li>
               <li><b>Mutual-review policy.</b> At least one qualified author per submission serves as a reviewer.</li>
               <li><b>Program Committee</b> resolves conflicts and recommends decisions, with the NeurIPS conflict-of-interest policy enforced.</li>
@@ -527,12 +531,12 @@
           </div>
           <aside class="cfp-side" data-reveal aria-label="Call for papers at a glance">
             <div class="stat-row">
-              <div class="stat"><div class="num">~100</div><div class="lab">Accepted papers<br>(poster sessions)</div></div>
               <div class="stat"><div class="num">6</div><div class="lab">Contributed orals<br>(10 min each)</div></div>
               <div class="stat"><div class="num">3</div><div class="lab">Reviews per<br>submission</div></div>
-              <div class="stat"><div class="num">200<span class="u">–</span>500</div><div class="lab">Expected<br>attendance</div></div>
+              <div class="stat"><div class="num">1</div><div class="lab">Best Paper<br>Award</div></div>
+              <div class="stat"><div class="num">✓</div><div class="lab">Travel grants<br>available</div></div>
             </div>
-            <p class="cfp-note">Around <b>200</b> submissions are expected, with roughly <b>100</b> accepted for poster sessions and <b>1</b> Best Paper Award. Submission portal: <span class="tbd" title="OpenReview group URL not yet issued">OpenReview link TBD</span>.</p>
+            <p class="cfp-note">Submissions are managed through OpenReview. Full submission link: <span class="todo">TODO</span>.</p>
             <div class="cfp-cta">
               <a class="btn btn-primary" href="https://openreview.net/" target="_blank" rel="noopener">Go to OpenReview <span class="arr" aria-hidden="true">↗</span></a>
             </div>
@@ -726,11 +730,11 @@
           </article>
           <article class="card">
             <div class="card-head">
-              <div class="avatar g2"><span class="mono-initials">JK</span><img src="assets/people/kim.jpg" alt="Portrait of Jaihoon Kim" loading="lazy" onerror="this.remove()"></div>
-              <div class="card-id"><div class="name">Jaihoon Kim</div><div class="aff">KAIST · Netflix Research (Intern)</div></div>
+              <div class="avatar g2"><span class="mono-initials">JK</span><img src="assets/people/jaihoon.png" alt="Portrait of Jaihoon Kim" loading="lazy" onerror="this.remove()"></div>
+              <div class="card-id"><div class="name">Jaihoon Kim</div><div class="aff">KAIST</div></div>
             </div>
             <div class="card-divider"></div>
-            <p class="bio">PhD candidate at KAIST and Research Scientist Intern at Netflix Research, working on diffusion models and generative AI.</p>
+            <p class="bio">PhD student at KAIST, working on diffusion models and generative AI.</p>
             <a class="email" href="mailto:jh27kim@kaist.ac.kr">jh27kim@kaist.ac.kr</a>
           </article>
           <article class="card">
@@ -739,7 +743,7 @@
               <div class="card-id"><div class="name">Molei Tao</div><div class="aff">Georgia Tech</div></div>
             </div>
             <div class="card-divider"></div>
-            <p class="bio">Associate Professor at Georgia Tech working on applied mathematics, dynamical systems, optimization, and the theory of generative models.</p>
+            <p class="bio">Professor at Georgia Tech working on Generative AI such as diffusion models.</p>
             <a class="email" href="mailto:mtao@gatech.edu">mtao@gatech.edu</a>
           </article>
           <article class="card">
@@ -749,16 +753,16 @@
             </div>
             <div class="card-divider"></div>
             <p class="bio">Assistant Professor at the University of Pennsylvania developing generative models for biological and therapeutic design.</p>
-            <a class="email" href="mailto:pranam@seas.upenn.edu">pranam@seas.upenn.edu</a>
+            <a class="email" href="mailto:pranam@engineering.upenn.edu">pranam@engineering.upenn.edu</a>
           </article>
           <article class="card">
             <div class="card-head">
-              <div class="avatar g2"><span class="mono-initials">ST</span><img src="assets/people/tang.jpg" alt="Portrait of Sophia Tang" loading="lazy" onerror="this.remove()"></div>
+              <div class="avatar g2"><span class="mono-initials">ST</span><img src="assets/people/sophia.png" alt="Portrait of Sophia Tang" loading="lazy" onerror="this.remove()"></div>
               <div class="card-id"><div class="name">Sophia Tang</div><div class="aff">University of Pennsylvania</div></div>
             </div>
             <div class="card-divider"></div>
-            <p class="bio">PhD student at the University of Pennsylvania researching generative models for biomolecular design.</p>
-            <a class="email" href="mailto:sophtang@seas.upenn.edu">sophtang@seas.upenn.edu</a>
+            <p class="bio">Undergraduate Researcher at the University of Pennsylvania researching generative models for biomolecular design.</p>
+            <a class="email" href="mailto:sophtang@engineering.upenn.edu">sophtang@engineering.upenn.edu</a>
           </article>
           <article class="card">
             <div class="card-head">
@@ -784,19 +788,12 @@
 
     <!-- ===================== SPONSORS ===================== -->
     <section id="funding" class="dark pad-y">
-      <div class="wrap funding-inner">
-        <div data-reveal>
-          <p class="eyebrow"><span class="idx">09</span> Sponsors &amp; Support</p>
-          <span class="sponsor-status"><span class="d"></span>In discussion</span>
-          <h2 class="h">Support that <span class="it">widens the door</span>.</h2>
-          <p style="margin-top:20px">We are in conversation with industry partners to fund the workshop, with support earmarked for <b>diversity, access, and travel grants</b> for students and early-career researchers. Sponsors will be announced here once confirmed.</p>
-          <p style="font-family:var(--ff-mono); font-size:13px; color:#8890b0; letter-spacing:.02em;">Interested in supporting the workshop? <a href="#organizers" style="color:var(--accent-lt); text-decoration:underline; text-underline-offset:3px;">Reach out to the organizers ↗</a></p>
-        </div>
-        <div class="sponsor-grid" data-reveal>
-          <div class="sponsor-box"><div class="nm">Microsoft</div><div class="st">Preliminary talks</div></div>
-          <div class="sponsor-box"><div class="nm">Cerebras Systems</div><div class="st">In discussion</div></div>
-          <div class="sponsor-box"><div class="nm">NVIDIA</div><div class="st">In discussion</div></div>
-          <div class="sponsor-box"><div class="nm">Inception Labs</div><div class="st">In discussion</div></div>
+      <div class="wrap">
+        <div data-reveal style="max-width:60ch; margin:0 auto; text-align:center">
+          <p class="eyebrow" style="justify-content:center"><span class="idx">09</span> Sponsors &amp; Support</p>
+          <h2 class="h" style="margin:0 auto">Support that <span class="it">widens the door</span>.</h2>
+          <p style="margin-top:20px">Sponsorship helps us fund travel grants and broaden participation for students and early-career researchers. Our sponsors will be announced here.</p>
+          <p style="font-family:var(--ff-mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#8890b0; margin-top:28px">Sponsors to be announced</p>
         </div>
       </div>
     </section>
@@ -821,7 +818,7 @@
         <div class="foot-brand">
           <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#5b53ff"/><g fill="#fff"><rect x="5" y="5" width="6" height="6" rx="1.4" opacity=".4"/><rect x="13" y="5" width="6" height="6" rx="1.4" opacity=".95"/><rect x="21" y="5" width="6" height="6" rx="1.4" opacity=".55"/><rect x="5" y="13" width="6" height="6" rx="1.4" opacity=".9"/><rect x="13" y="13" width="6" height="6" rx="1.4" opacity=".45"/><rect x="21" y="13" width="6" height="6" rx="1.4" opacity=".95"/><rect x="5" y="21" width="6" height="6" rx="1.4" opacity=".55"/><rect x="13" y="21" width="6" height="6" rx="1.4" opacity=".95"/><rect x="21" y="21" width="6" height="6" rx="1.4" opacity=".35"/></g></svg>
           <div class="t">Beyond Next Token Prediction: Diffusion &amp; Flow Models for Next-Generation Decoding</div>
-          <div class="d">A NeurIPS 2026 Workshop · Dec 11–12, 2026 · Location TBD</div>
+          <div class="d">A NeurIPS 2026 Workshop · Dec 11–12, 2026 · Sydney, Australia</div>
         </div>
         <div class="foot-col">
           <h4>Workshop</h4>
